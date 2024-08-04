@@ -2,11 +2,6 @@
 
 ## Prerequisites
 
-### Java
-
-You need to have Java 21:
-- [JDK 21](https://openjdk.java.net/projects/jdk/21/)
-
 ### Node.js and NPM
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
@@ -28,17 +23,10 @@ npm install
 
 ## Start up
 
-```bash
-docker compose -f src/main/docker/postgresql.yml up -d
-```
-
 
 <!-- jhipster-needle-startupCommand -->
 
 ## Documentation
 
-- [Package types](documentation/package-types.md)
-- [Assertions](documentation/assertions.md)
-- [Postgresql](documentation/postgresql.md)
 
 <!-- jhipster-needle-documentation -->

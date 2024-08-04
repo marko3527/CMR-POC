@@ -123,6 +123,3 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
-
-# Maven
-/target/
