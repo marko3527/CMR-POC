@@ -42,3 +42,5 @@ logging:
     com:
       mycompany:
         myapp: INFO
+server:
+  port: 8080
