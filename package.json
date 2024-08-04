@@ -8,11 +8,36 @@
     "node": ">=20"
   },
   "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --emptyOutDir",
+    "preview": "vite preview",
+    "start": "vite",
+    "lint": "eslint --ext .js,.ts,.tsx src/main/webapp/app/**/*",
+    "test": "npm run test:watch",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --",
     "prepare": "husky",
     "prettier:check": "prettier --check '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'",
     "prettier:format": "prettier --write '{,src/**/}*.{md,json,yml,html,js,ts,tsx,css,scss,vue,java,xml,feature}'"
   },
   "devDependencies": {
+    "@testing-library/react": "15.0.7",
+    "@testing-library/user-event": "14.5.2",
+    "@types/node": "20.12.12",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "@typescript-eslint/eslint-plugin": "7.10.0",
+    "@vitejs/plugin-react": "4.3.0",
+    "@vitest/coverage-istanbul": "1.6.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-react": "7.34.1",
+    "jsdom": "24.0.0",
+    "typescript": "5.4.5",
+    "ts-node": "10.9.2",
+    "vite": "5.2.11",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "1.6.0",
+    "vitest-sonar-reporter": "2.0.0",
     "@prettier/plugin-xml": "3.4.1",
     "husky": "9.0.11",
     "lint-staged": "15.2.4",
@@ -20,5 +45,9 @@
     "prettier-plugin-gherkin": "2.2.1",
     "prettier-plugin-java": "2.6.0",
     "prettier-plugin-packagejson": "2.5.0"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
 }
