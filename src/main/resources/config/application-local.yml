@@ -2,4 +2,4 @@ logging:
   level:
     com:
       mycompany:
-        myapp: DEBUG
+        myapp: INFO

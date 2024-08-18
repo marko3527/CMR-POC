@@ -10,7 +10,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/main/webapp/app/*"]
-    }
+    },
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
