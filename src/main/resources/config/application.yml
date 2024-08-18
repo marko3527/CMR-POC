@@ -9,6 +9,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  liquibase:
+    change-log: classpath:db/db.changelog-master.yaml
 logging:
   level:
     com:
@@ -16,4 +18,5 @@ logging:
         myapp: INFO
 server:
   port: 8080
+
 

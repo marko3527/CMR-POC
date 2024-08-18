@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: create tables and schemas
+      author: marko.grozaj
+      changes:
+        - sql:
+            sql: |
+              CREATE SCHEMA IF NOT EXISTS predefined_tables;
+
+              CREATE TABLE IF NOT EXISTS predefined_tables.table_foreign_key_display_value (
+                id_table_foreign_key_display_value BIGSERIAL PRIMARY KEY ,
+                table_name VARCHAR(200),
+                foreign_key_column VARCHAR(200),
+                referenced_table_name VARCHAR(200),
+                foreign_key_display_column varchar(200)
+              );
