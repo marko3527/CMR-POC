@@ -7,7 +7,7 @@ export interface TableDefinitionModel {
 
 export interface ColumnDefinitionModel {
   columnName: string;
-  columnType: DropdownModel | string
+  columnType: string
   mandatory: boolean;
   unique: boolean;
   defaultValue?: any

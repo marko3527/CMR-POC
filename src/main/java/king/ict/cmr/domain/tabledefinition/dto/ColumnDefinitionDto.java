@@ -15,7 +15,6 @@ public class ColumnDefinitionDto {
   private Object defaultValue;
   private boolean foreignKey;
   private String referencedTableName;
-
   private String fkDisplayValueColumn;
   private boolean multiselectColumn;
   private boolean identity;

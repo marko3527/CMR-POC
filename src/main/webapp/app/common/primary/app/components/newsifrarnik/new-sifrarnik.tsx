@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Dropdown, DropdownButton, Form, InputGroup, Row } from 'react-bootstrap';
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import {
-  ColumnDefinitionModel, NewSifrarnikColumnType,
+  ColumnDefinitionModel,
+  NewSifrarnikColumnType,
   TableDefinitionModel,
 } from '@/common/primary/app/components/newsifrarnik/table-definition-model';
 import axios from 'axios';
 import { fetchTypeOptions } from '@/common/primary/app/service/sifrarnik-service';
-import { an } from 'vitest/dist/types-2b1c412e';
-import { Simulate } from 'react-dom/test-utils';
-import reset = Simulate.reset;
 import { DropdownModel } from '@/common/primary/app/components/valuelist/value-list.model';
 import Select from 'react-select';
 
@@ -19,11 +17,14 @@ export interface INewSifrarnikProps {
 }
 
 const NewSifrarnik = (props: INewSifrarnikProps) => {
-  const [typeOptions, setTypeOptions] = useState<DropdownModel[]>([]);
+  const [typeOptions, setTypeOptions] = useState<string[]>([]);
   const [fkDisplayValueColumns, setFkDisplayValueColumns] = useState<string[]>([]);
 
   useEffect(() => {
-    fetchTypeOptions().then(setTypeOptions)
+    fetchTypeOptions().then(data => {
+      console.log(data.map((option: DropdownModel) => option.value))
+      setTypeOptions(data.map((option: DropdownModel) => option.value))
+    })
   }, [])
 
   const nazivSifrarnikaOnChange = (value: string) => {
@@ -34,6 +35,7 @@ const NewSifrarnik = (props: INewSifrarnikProps) => {
   }
 
   const kolonaOnChange = (index: number, key: string, value: any) => {
+    console.log(value)
     props.setSifrarnikModel((prevState) => ({
       ...prevState,
       columns: prevState.columns.map((kolona, kolonaIndex) => {
@@ -64,7 +66,7 @@ const NewSifrarnik = (props: INewSifrarnikProps) => {
       kolonaOnChange(index, "referencedTableName", undefined)
       kolonaOnChange(index, "multiselectColumn", undefined)
     } else {
-      kolonaOnChange(index, "columnType", typeOptions.filter(typeOption => typeOption.value === NewSifrarnikColumnType.NUMBER)[0])
+      kolonaOnChange(index, "columnType", typeOptions.filter(typeOption => typeOption === NewSifrarnikColumnType.NUMBER)[0])
     }
     kolonaOnChange(index, "foreignKey", event.target.checked)
   }
@@ -102,25 +104,24 @@ const NewSifrarnik = (props: INewSifrarnikProps) => {
               <Col md={6}>
                 <Form.Label>Kolona</Form.Label>
                 <InputGroup className="mb-3">
-                  <Select
-                    value={props.sifrarnikModel.columns[index].columnType ? props.sifrarnikModel.columns[index].columnType : undefined}
-                    onChange={(option: DropdownModel) => kolonaOnChange(index, "columnType", option.value)}
-                    isDisabled={columnTypeDisabled(index)}
-                    placeholder={"Odaberite vrijednost..."}
-                    options={typeOptions}
-                    getOptionLabel={(option: DropdownModel) => option.value}
-                  />
+                  <Form.Select value={props.sifrarnikModel.columns[index].columnType ? props.sifrarnikModel.columns[index].columnType : undefined}
+                               onChange={e => kolonaOnChange(index, "columnType", e.target.value)}
+                               disabled={columnTypeDisabled(index)}>
+                    {typeOptions && typeOptions.map((column: string, index: number) => (
+                      <option key={index}>{column}</option>
+                    ))}
+                  </Form.Select>
                   <Form.Control value={props.sifrarnikModel.columns[index].columnName} onChange={e => kolonaOnChange(index, "columnName", e.target.value)}/>
                 </InputGroup>
               </Col>
               <Col md={2}>
                 <Form.Label>Def vrijednost</Form.Label>
-                {props.sifrarnikModel.columns[index].columnType?.value === NewSifrarnikColumnType.BOOLEAN &&
+                {props.sifrarnikModel.columns[index].columnType === NewSifrarnikColumnType.BOOLEAN &&
                   <InputGroup className="mb-3">
                     <Form.Check checked={props.sifrarnikModel.columns[index].defaultValue} onChange={e => kolonaOnChange(index, "defaultValue", e.target.checked)}/>
                   </InputGroup>
                 }
-                {props.sifrarnikModel.columns[index].columnType?.value !== NewSifrarnikColumnType.BOOLEAN &&
+                {props.sifrarnikModel.columns[index].columnType !== NewSifrarnikColumnType.BOOLEAN &&
                   <InputGroup className="mb-3">
                     <Form.Control value={props.sifrarnikModel.columns[index].defaultValue} onChange={e => kolonaOnChange(index, "defaultValue", e.target.value)}/>
                   </InputGroup>
